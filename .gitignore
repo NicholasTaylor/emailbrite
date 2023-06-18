@@ -1,10 +1,10 @@
 #Auto-Generated
 __pycache__/
 venv/
-.env
 
 # Sensitive
 config.py
+.env
 
 # User-Specific
 *.html
