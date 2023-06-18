@@ -1,0 +1,9 @@
+#Auto-Generated
+__pycache__/
+venv/
+
+# Sensitive
+config.py
+
+# User-Specific
+*.html
