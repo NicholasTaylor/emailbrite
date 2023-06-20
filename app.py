@@ -14,6 +14,8 @@ def gen_metadata():
         CONTACTS.append(classes.Contact(**contact))
 
 def main():
+    if functions.is_lockfile():
+        return
     load_dotenv(find_dotenv())
     gen_metadata()
     events = functions.get_all_latest_events(ORGS, os.getenv('EVENT_AUTH'))
@@ -22,5 +24,9 @@ def main():
             for contact in CONTACTS:
                 if contact.is_optin(event.org_id):
                     msg = functions.personalize(os.getenv('TEMPLATE'), {'first_name': contact.first_name, 'event_name': event.name, 'event_url': event.url})
-                    functions.deploy(os.getenv('HOST_NAME'), os.getenv('PORT_NUM'), os.getenv('EMAILUSER'), os.getenv('PASSWORD'), os.getenv('FROM_ADDR'), contact.email, os.getenv('SUBL_TEXT'), msg)
+                    functions.deploy(os.getenv('HOST_NAME'), os.getenv('PORT_NUM'), os.getenv('EMAILUSER'), os.getenv('PASSWORD'), os.getenv('FROM_ADDR'), contact.email, 'New Event Detected from Wonderland: %s' % (event.name), msg)
+                    if functions.is_lockfile():
+                        pass
+                    else:
+                        functions.gen_lockfile()
 main()

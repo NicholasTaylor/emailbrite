@@ -6,6 +6,18 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+LOCKFILE = '.lockfile'
+
+def gen_lockfile():
+    with open(LOCKFILE, 'w+') as f:
+        pass
+
+def is_lockfile():
+    if os.path.isfile(LOCKFILE):
+        return True
+    else:
+        return False
+
 def get_template(filename):
     with open(filename) as f:
         template_code = f.read()
@@ -20,7 +32,6 @@ def personalize(template, pers_dict):
     return template.render(**pers_dict)
 
 def deploy(host_name, port_num, emailuser, password, from_addr, to_addr, subj_txt, msg_txt):
-    print(str(locals()))
     msg = MIMEMultipart()
     msg['From'] = from_addr
     msg['To'] = to_addr

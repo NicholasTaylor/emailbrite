@@ -3,8 +3,9 @@ __pycache__/
 venv/
 
 # Sensitive
-config.py
 .env
 
 # User-Specific
 templates/*
+!templates/.gitkeep
+.lockfile
