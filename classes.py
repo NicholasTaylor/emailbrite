@@ -13,8 +13,7 @@ class Event:
         self.url = url
     def is_future(self):
         from datetime import datetime
-        #if datetime.strptime(self.start_zulu, '%Y-%m-%dT%H:%M:%SZ') > datetime.utcnow():
-        if datetime.strptime(self.start_zulu, '%Y-%m-%dT%H:%M:%SZ') > datetime.strptime('2022-07-09T00:00:00Z', '%Y-%m-%dT%H:%M:%SZ'):
+        if datetime.strptime(self.start_zulu, '%Y-%m-%dT%H:%M:%SZ') > datetime.utcnow():
             return True
         else:
             return False
